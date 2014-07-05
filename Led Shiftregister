@@ -1,0 +1,75 @@
+
+/*
+  controlling a shift register with Cochise
+  7 Leds are attached to the Q# pins of a 74hct595n
+  
+
+ */
+int MBN=0b000000;
+//Pin connected to latch pin (ST_CP) of 74HC595
+const int latchPin = 8;
+//Pin connected to clock pin (SH_CP) of 74HC595
+const int clockPin = 12;
+////Pin connected to Data in (DS) of 74HC595
+const int dataPin = 11;
+int time=100
+;
+void setup() {
+  //set pins to output because they are addressed in the main loop
+  pinMode(latchPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);  
+  pinMode(clockPin, OUTPUT);
+
+}
+
+void loop() {
+  MBN=0b1000001; 
+   go();
+  MBN=0b0100010;
+   go();
+  MBN=0b0010100;  
+    go();
+  MBN=0b0001000;
+    go();
+  MBN=0b0010100;
+    go();
+  MBN=0b0100010;
+    go();
+  MBN=0b1000000;
+    go();
+  MBN=0b010000;
+    go();
+  MBN=0b0001000;
+    go();
+  MBN=0b0000100;
+    go();
+  MBN=0b0000010;
+    go();
+  MBN=0b0000001;
+    go();
+  MBN=0b0000010;
+    go();
+  MBN=0b0000100;
+    go();
+  MBN=0b0001000;
+    go();
+  MBN=0b0010000;
+    go();
+  MBN=0b0100000;
+    go();
+  MBN=0b1000000;
+    go();
+ 
+}
+
+void go()
+{
+ digitalWrite(8,LOW); //unlatch the latchpin so it doesnt get confused during programming the register
+  shiftOut(11,12,MSBFIRST,MBN); 
+  digitalWrite(8,HIGH); 
+  delay(10); 
+  digitalWrite(8,LOW); 
+  delay(time); 
+  
+}
+
